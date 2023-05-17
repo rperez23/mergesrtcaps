@@ -61,7 +61,16 @@ for key in origcaptiondict.keys():
 
 	txt = ''.join(sorted(origtxt.lower()))
 	
-	#print(txt)
+	for premierekey in premiereprodict.keys():
+
+		ptc  = premiereprodict[premierekey][0]
+		ptxt = premiereprodict[premierekey][1]
+		ptxt = ''.join(sorted(ptxt.lower()))
+
+		match = difflib.SequenceMatcher(None, txt, ptxt).ratio()
+		print(match)
+		
+
 
 
 

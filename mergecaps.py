@@ -1,7 +1,10 @@
 #! /usr/bin/python3
 
+import difflib
 import re
 import sys
+
+#x = difflib.SequenceMatcher(None, a, b).ratio()
 
 origcaptiondict = {}
 premiereprodict = {}
@@ -41,13 +44,26 @@ def readsrt(inf):
 			txt += l
 
 	srt.close()
+	parts.append(txt)
+	returnhash[keynum] = parts
 
 	return returnhash
 
 origcaptiondict = readsrt('scc_captions.srt')
 premiereprodict = readsrt('prp_captions.srt')
 
-print(origcaptiondict)
+#compare the two hashes
+
+for key in origcaptiondict.keys():
+	
+	tc      = origcaptiondict[key][0]
+	origtxt = origcaptiondict[key][1]
+
+	txt = ''.join(sorted(origtxt.lower()))
+	
+	#print(txt)
+
+
 
 
 

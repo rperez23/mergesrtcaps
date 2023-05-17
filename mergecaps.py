@@ -43,6 +43,7 @@ def readsrt(inf):
 		else:
 			txt += l
 
+
 	srt.close()
 	parts.append(txt)
 	returnhash[keynum] = parts
@@ -59,16 +60,35 @@ for key in origcaptiondict.keys():
 	tc      = origcaptiondict[key][0]
 	origtxt = origcaptiondict[key][1]
 
-	txt = ''.join(sorted(origtxt.lower()))
+	#txt = ''.join(sorted(origtxt.lower()))
+	txt  = origtxt.lower()
+
+	skip = True
 	
 	for premierekey in premiereprodict.keys():
 
 		ptc  = premiereprodict[premierekey][0]
 		ptxt = premiereprodict[premierekey][1]
-		ptxt = ''.join(sorted(ptxt.lower()))
+		#ptxt = ''.join(sorted(ptxt.lower()))
+		ptxt  = ptxt.lower()
 
 		match = difflib.SequenceMatcher(None, txt, ptxt).ratio()
-		print(match)
+		#print(match,txt)
+		#print(match,ptxt)
+
+		if match >= 0.5:
+			print(key)
+			print(ptc)
+			print(origtxt)
+			print('')
+			skip = False
+			break
+
+	if skip:
+		print(key)
+		print(tc)
+		print(origtxt)
+		print('')
 		
 
 
